@@ -1,0 +1,106 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                    targetNamespace="http://www.cvele.com/intersections/ws/Intersections"
+                    xmlns:tns="http://www.cvele.com/intersections/ws/Intersections"
+                    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                    name="IntersectionsWS">
+    
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://www.cvele.com/intersections/ws/Intersections" >
+            <xsd:element name="Intersection">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:int" />
+                        <xsd:element name="symbol" type="xsd:int" />
+                        <xsd:element name="title" type="xsd:string" />
+                        <xsd:element name="xcoordinate" type="xsd:decimal" />
+                        <xsd:element name="ycoordinate" type="xsd:decimal" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getPizzaByIdRequest" >
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getPizzaByIdResponse" >
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="return" type="tns:Pizza" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createPizzaRequest" >
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="pizza" type="tns:Pizza"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createPizzaResponse" >
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="return" type="xsd:int" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    
+    <wsdl:message name="getPizzaByIdRequest">
+        <wsdl:part name="parameter" element="tns:getPizzaByIdRequest"/>
+    </wsdl:message>
+    <wsdl:message name="getPizzaByIdResponse" >
+        <wsdl:part name="parameter" element="tns:getPizzaByIdResponse" />
+    </wsdl:message>
+    <wsdl:message name="createPizzaRequest">
+        <wsdl:part name="parameter" element="tns:createPizzaRequest" />
+    </wsdl:message>
+    <wsdl:message name="createPizzaResponse" >
+        <wsdl:part name="parameter" element="tns:createPizzaResponse" />
+    </wsdl:message>
+    
+    <wsdl:portType name="OrderService" >
+        <wsdl:operation name="getPizzaById" >
+            <wsdl:input message="tns:getPizzaByIdRequest" />
+            <wsdl:output message="tns:getPizzaByIdResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="createPizza" >
+            <wsdl:input message="tns:createPizzaRequest" />
+            <wsdl:output message="tns:createPizzaResponse" />
+        </wsdl:operation>
+    </wsdl:portType>
+    
+    <wsdl:binding name="OrderServiceBinding" type="tns:OrderService" >
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="getPizzaById" >
+            <soap:operation soapAction="http://localhost:8080/order/getPizzaById" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createPizza" >
+            <soap:operation soapAction="http://localhost:8080/order/createPizza" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    
+    <wsdl:service name="OrderServiceImpl" >
+        <wsdl:port name="OrderServicePort" binding="tns:OrderServiceBinding" >
+            <soap:address location="http://localhost:8080/order" />
+        </wsdl:port>
+    </wsdl:service>
+    
+</wsdl:definitions>
+    
+    
