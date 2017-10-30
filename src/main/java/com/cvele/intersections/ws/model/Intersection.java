@@ -103,13 +103,13 @@ public class Intersection implements Serializable {
         this.ycoordinate = ycoordinate;
     }
 
-    public String getPdf() {
-        return pdf;
-    }
-
-    public void setPdf(String pdf) {
-        this.pdf = pdf;
-    }
+//    public String getPdf() {
+//        return pdf;
+//    }
+//
+//    public void setPdf(String pdf) {
+//        this.pdf = pdf;
+//    }
 
 //    public List<PedestrianPushButton> getPedestrianPushButtonList() {
 //        return pedestrianPushButtonList;

@@ -18,65 +18,87 @@
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
-            <xsd:element name="getPizzaByIdRequest" >
+            <xsd:element name="getIntersectionById" >
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="id" type="xsd:int"/>
+                        <xsd:element name="id" type="xsd:int" minOccurs="1" maxOccurs="1"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
-            <xsd:element name="getPizzaByIdResponse" >
+            <xsd:element name="getIntersectionByIdResponse" >
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="return" type="tns:Pizza" />
+                        <xsd:element name="return" type="tns:Intersection" minOccurs="1" maxOccurs="1"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
-            <xsd:element name="createPizzaRequest" >
+            <xsd:element name="createIntersection" >
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="pizza" type="tns:Pizza"/>
+                        <xsd:element name="intersection" type="tns:Intersection" minOccurs="1" maxOccurs="1"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
-            <xsd:element name="createPizzaResponse" >
+            <xsd:element name="createIntersectionResponse" >
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="return" type="xsd:int" />
+                        <xsd:element name="return" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getAllIntersections">
+                <xsd:complexType>
+                    <xsd:sequence />
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getAllIntersectionsResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="return" type="tns:Intersection" minOccurs="0" maxOccurs="unbounded" />
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
         </xsd:schema>
     </wsdl:types>
     
-    <wsdl:message name="getPizzaByIdRequest">
-        <wsdl:part name="parameter" element="tns:getPizzaByIdRequest"/>
+    <wsdl:message name="getIntersectionByIdRequest">
+        <wsdl:part name="parameter" element="tns:getIntersectionById"/>
     </wsdl:message>
-    <wsdl:message name="getPizzaByIdResponse" >
-        <wsdl:part name="parameter" element="tns:getPizzaByIdResponse" />
+    <wsdl:message name="getIntersectionByIdResponse" >
+        <wsdl:part name="parameter" element="tns:getIntersectionByIdResponse" />
     </wsdl:message>
-    <wsdl:message name="createPizzaRequest">
-        <wsdl:part name="parameter" element="tns:createPizzaRequest" />
+    <wsdl:message name="createIntersectionRequest">
+        <wsdl:part name="parameter" element="tns:createIntersection" />
     </wsdl:message>
-    <wsdl:message name="createPizzaResponse" >
-        <wsdl:part name="parameter" element="tns:createPizzaResponse" />
+    <wsdl:message name="createIntersectionResponse" >
+        <wsdl:part name="parameter" element="tns:createIntersectionResponse" />
+    </wsdl:message>
+    <wsdl:message name="getAllIntersectionsRequest">
+        <wsdl:part name="parameter" element="tns:getAllIntersections" />
+    </wsdl:message>
+    <wsdl:message name="getAllIntersectionsResponse">
+        <wsdl:part name="parameter" element="tns:getAllIntersectionsResponse" />
     </wsdl:message>
     
-    <wsdl:portType name="OrderService" >
-        <wsdl:operation name="getPizzaById" >
-            <wsdl:input message="tns:getPizzaByIdRequest" />
-            <wsdl:output message="tns:getPizzaByIdResponse" />
+    <wsdl:portType name="IntersectionsWS" >
+        <wsdl:operation name="getIntersectionById" >
+            <wsdl:input message="tns:getIntersectionByIdRequest" />
+            <wsdl:output message="tns:getIntersectionByIdResponse" />
         </wsdl:operation>
-        <wsdl:operation name="createPizza" >
-            <wsdl:input message="tns:createPizzaRequest" />
-            <wsdl:output message="tns:createPizzaResponse" />
+        <wsdl:operation name="createIntersection" >
+            <wsdl:input message="tns:createIntersectionRequest" />
+            <wsdl:output message="tns:createIntersectionResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="getAll">
+            <wsdl:input message="tns:getAllIntersectionsRequest" />
+            <wsdl:output message="tns:getAllIntersectionsResponse" />
         </wsdl:operation>
     </wsdl:portType>
     
-    <wsdl:binding name="OrderServiceBinding" type="tns:OrderService" >
-        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-        <wsdl:operation name="getPizzaById" >
-            <soap:operation soapAction="http://localhost:8080/order/getPizzaById" style="document" />
+    <wsdl:binding name="IntersectionsWSBinding" type="tns:IntersectionsWS" >
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getIntersectionById" >
+            <!--<soap:operation soapAction="http://localhost:8080/order/getPizzaById" style="document" />-->
             <wsdl:input>
                 <soap:body use="literal" />
             </wsdl:input>
@@ -84,8 +106,16 @@
                 <soap:body use="literal" />
             </wsdl:output>
         </wsdl:operation>
-        <wsdl:operation name="createPizza" >
-            <soap:operation soapAction="http://localhost:8080/order/createPizza" style="document" />
+        <wsdl:operation name="createIntersection" >
+            <!--<soap:operation soapAction="http://localhost:8080/order/createPizza" style="document" />-->
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getAll">
             <wsdl:input>
                 <soap:body use="literal" />
             </wsdl:input>
@@ -95,9 +125,9 @@
         </wsdl:operation>
     </wsdl:binding>
     
-    <wsdl:service name="OrderServiceImpl" >
-        <wsdl:port name="OrderServicePort" binding="tns:OrderServiceBinding" >
-            <soap:address location="http://localhost:8080/order" />
+    <wsdl:service name="IntersectionsWSImpl" >
+        <wsdl:port name="IntersectionsWSPort" binding="tns:IntersectionsWSBinding" >
+            <soap:address location="http://localhost:8080/cxf/ws" />
         </wsdl:port>
     </wsdl:service>
     
