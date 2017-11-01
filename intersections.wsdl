@@ -1,23 +1,15 @@
 <wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
                     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-                    targetNamespace="http://www.cvele.com/intersections/ws/Intersections"
-                    xmlns:tns="http://www.cvele.com/intersections/ws/Intersections"
+                    targetNamespace="http://www.cvele.com/intersections/ws"
+                    xmlns:tns="http://www.cvele.com/intersections/ws"
+                    xmlns:model="http://www.cvele.com/intersections/ws/model"
                     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                     name="IntersectionsWS">
     
     <wsdl:types>
-        <xsd:schema targetNamespace="http://www.cvele.com/intersections/ws/Intersections" >
-            <xsd:element name="Intersection">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="id" type="xsd:int" />
-                        <xsd:element name="symbol" type="xsd:int" />
-                        <xsd:element name="title" type="xsd:string" />
-                        <xsd:element name="xcoordinate" type="xsd:decimal" />
-                        <xsd:element name="ycoordinate" type="xsd:decimal" />
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
+        <xsd:schema targetNamespace="http://www.cvele.com/intersections/ws" >
+            
+            <xsd:import namespace="http://www.cvele.com/intersections/ws/model" schemaLocation="./model.xsd" />
             <xsd:element name="getIntersectionById" >
                 <xsd:complexType>
                     <xsd:sequence>
@@ -28,14 +20,14 @@
             <xsd:element name="getIntersectionByIdResponse" >
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="return" type="tns:Intersection" minOccurs="1" maxOccurs="1"/>
+                        <xsd:element name="return" type="model:Intersection" minOccurs="1" maxOccurs="1"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="createIntersection" >
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="intersection" type="tns:Intersection" minOccurs="1" maxOccurs="1"/>
+                        <xsd:element name="intersection" type="model:Intersection" minOccurs="1" maxOccurs="1"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
@@ -54,7 +46,7 @@
             <xsd:element name="getAllIntersectionsResponse">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="return" type="tns:Intersection" minOccurs="0" maxOccurs="unbounded" />
+                        <xsd:element name="return" type="model:Intersection" minOccurs="0" maxOccurs="unbounded"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
@@ -62,22 +54,22 @@
     </wsdl:types>
     
     <wsdl:message name="getIntersectionByIdRequest">
-        <wsdl:part name="parameter" element="tns:getIntersectionById"/>
+        <wsdl:part name="request" element="tns:getIntersectionById"/>
     </wsdl:message>
     <wsdl:message name="getIntersectionByIdResponse" >
-        <wsdl:part name="parameter" element="tns:getIntersectionByIdResponse" />
+        <wsdl:part name="response" element="tns:getIntersectionByIdResponse" />
     </wsdl:message>
     <wsdl:message name="createIntersectionRequest">
-        <wsdl:part name="parameter" element="tns:createIntersection" />
+        <wsdl:part name="request" element="tns:createIntersection" />
     </wsdl:message>
     <wsdl:message name="createIntersectionResponse" >
-        <wsdl:part name="parameter" element="tns:createIntersectionResponse" />
+        <wsdl:part name="response" element="tns:createIntersectionResponse" />
     </wsdl:message>
     <wsdl:message name="getAllIntersectionsRequest">
-        <wsdl:part name="parameter" element="tns:getAllIntersections" />
+        <wsdl:part name="request" element="tns:getAllIntersections" />
     </wsdl:message>
     <wsdl:message name="getAllIntersectionsResponse">
-        <wsdl:part name="parameter" element="tns:getAllIntersectionsResponse" />
+        <wsdl:part name="response" element="tns:getAllIntersectionsResponse" />
     </wsdl:message>
     
     <wsdl:portType name="IntersectionsWS" >
@@ -89,7 +81,7 @@
             <wsdl:input message="tns:createIntersectionRequest" />
             <wsdl:output message="tns:createIntersectionResponse" />
         </wsdl:operation>
-        <wsdl:operation name="getAll">
+        <wsdl:operation name="getAllIntersections">
             <wsdl:input message="tns:getAllIntersectionsRequest" />
             <wsdl:output message="tns:getAllIntersectionsResponse" />
         </wsdl:operation>
@@ -115,7 +107,7 @@
                 <soap:body use="literal" />
             </wsdl:output>
         </wsdl:operation>
-        <wsdl:operation name="getAll">
+        <wsdl:operation name="getAllIntersections">
             <wsdl:input>
                 <soap:body use="literal" />
             </wsdl:input>

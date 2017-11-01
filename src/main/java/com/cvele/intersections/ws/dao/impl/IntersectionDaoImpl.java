@@ -42,12 +42,18 @@ public class IntersectionDaoImpl implements IntersectionDao{
 
     @Override
     public Intersection getById(int id) {
-        return null;
+        Session session = sessionFactory.getCurrentSession(); 
+        Intersection i = session.get(Intersection.class, id);
+        
+        return i;
     }
 
     @Override
-    public void create() {
+    public int create(Intersection i) {
+        Session session = sessionFactory.getCurrentSession();
+        int id = (int) session.save(i);
         
+        return id;
     }
     
 }

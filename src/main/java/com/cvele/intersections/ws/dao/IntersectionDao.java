@@ -17,6 +17,6 @@ public interface IntersectionDao {
     
     List<Intersection> getAll();
     Intersection getById(int id);
-    void create();
+    int create(Intersection i);
     
 }

@@ -16,7 +16,8 @@ public class AdditionalInitializer implements WebApplicationInitializer{
     public void onStartup(ServletContext servletContext) throws ServletException {
         
         ServletRegistration.Dynamic cxfServlet = servletContext.addServlet("cxfServlet", new CXFServlet());
-        cxfServlet.addMapping("/cxf");
+//        cxfServlet.setLoadOnStartup(1);
+        cxfServlet.addMapping("/cxf/*");
         
     }
     

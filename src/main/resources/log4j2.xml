@@ -17,15 +17,24 @@
             </Policies>
             <DefaultRolloverStrategy fileIndex="nomax"/>
         </RollingFile>
+        <JDBC name="Jdbc" tableName="intersectionsdatabase_ws.logs">
+            <DataSource jndiName="jdbc/intersection_ws" />
+            <Column name="log_uid" pattern="%x" />
+            <Column name="log_date" isEventTimestamp="true" />
+            <Column name="log_priority" pattern="%level" />
+            <Column name="log_category" pattern="%logger:%L" />
+            <Column name="log_message" pattern="%message" isClob="true"/>
+        </JDBC>
     </Appenders>
     <Loggers>
-<!--        <Root level="warn">
+        <Root level="warn">
             <AppenderRef ref="Console" />
             <AppenderRef ref="File" />
-        </Root>-->
+        </Root>
         <Logger level="debug" name="com.cvele.intersections.ws" additivity="false">
             <AppenderRef ref="Console" />
             <AppenderRef ref="RollingFile" />
+            <AppenderRef ref="Jdbc" />
         </Logger>
     </Loggers>
 </Configuration>

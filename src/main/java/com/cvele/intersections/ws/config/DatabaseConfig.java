@@ -82,9 +82,10 @@ public class DatabaseConfig {
         prop.setProperty("hibernate.dialect", env.getProperty("mysql.hibernate.dialect"));
         prop.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         prop.setProperty("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
+        prop.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         LocalSessionFactoryBean lsfb = new LocalSessionFactoryBean();
         lsfb.setDataSource(dataSource);
-        lsfb.setPackagesToScan("com.intersections.model");
+        lsfb.setPackagesToScan("com.cvele.intersections.ws.model");
         lsfb.setHibernateProperties(prop);
         try {
             lsfb.afterPropertiesSet();
