@@ -17,8 +17,8 @@
             </Policies>
             <DefaultRolloverStrategy fileIndex="nomax"/>
         </RollingFile>
-        <JDBC name="Jdbc" tableName="intersectionsdatabase_ws.logs">
-            <DataSource jndiName="jdbc/intersection_ws" />
+        <JDBC name="Jdbc" tableName="intersectionsdatabase_ws_log.logs">
+            <DataSource jndiName="jdbc/intersection_ws_logs" />
             <Column name="log_uid" pattern="%x" />
             <Column name="log_date" isEventTimestamp="true" />
             <Column name="log_priority" pattern="%level" />
