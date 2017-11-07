@@ -6,7 +6,9 @@
 package com.cvele.intersections.ws.service;
 
 import com.cvele.intersections.ws.dao.IntersectionDao;
+import com.cvele.intersections.ws.dao.IntersectionDaoMongo;
 import com.cvele.intersections.ws.model.Intersection;
+import com.cvele.intersections.ws.model.IntersectionMongo;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class IntersectionService {
     @Autowired
     private IntersectionDao intersectionDao;
     
+    @Autowired
+    private IntersectionDaoMongo intersectionDaoMongo;
+    
     public int create(Intersection i){
         return intersectionDao.create(i);
     }
@@ -34,6 +39,10 @@ public class IntersectionService {
     
     public List<Intersection> getAll(){
         return intersectionDao.getAll();
+    }
+    
+    public void createMongo(IntersectionMongo i){
+        intersectionDaoMongo.create(i);
     }
     
 }

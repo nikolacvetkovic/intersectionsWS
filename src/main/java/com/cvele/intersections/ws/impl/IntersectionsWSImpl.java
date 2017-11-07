@@ -8,9 +8,12 @@ package com.cvele.intersections.ws.impl;
 
 import com.cvele.intersections.ws.IntersectionsWS;
 import com.cvele.intersections.ws.model.Intersection;
+import com.cvele.intersections.ws.model.IntersectionMongo;
 import com.cvele.intersections.ws.service.IntersectionService;
 import java.util.List;
 import java.util.UUID;
+import org.apache.cxf.interceptor.InInterceptors;
+import org.apache.cxf.interceptor.OutInterceptors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.ThreadContext;
@@ -30,6 +33,8 @@ import org.springframework.stereotype.Component;
                       targetNamespace = "http://www.cvele.com/intersections/ws",
                       //wsdlLocation = "file:intersections.wsdl",
                       endpointInterface = "com.cvele.intersections.ws.IntersectionsWS")
+@InInterceptors(interceptors = {"com.cvele.intersections.ws.interceptor.LoggingInInterceptor"})
+@OutInterceptors(interceptors = {"com.cvele.intersections.ws.interceptor.LoggingOutInterceptor"})
                       
 public class IntersectionsWSImpl implements IntersectionsWS {
 
@@ -43,15 +48,15 @@ public class IntersectionsWSImpl implements IntersectionsWS {
      */
     @Override
     public int createIntersection(Intersection intersection) {
-        ThreadContext.push(UUID.randomUUID().toString());
-        LOG.info("Executing operation createIntersection");
+//        ThreadContext.push(UUID.randomUUID().toString());
+//        LOG.info("Executing operation createIntersection");
         
         try {
             
             int id = intersectionService.create(intersection);
             
-            LOG.info("Executing operation createIntersection is finished");
-            ThreadContext.clearAll();
+//            LOG.info("Executing operation createIntersection is finished");
+//            ThreadContext.clearAll();
             return id;
             
         } catch (Exception ex) {
@@ -65,14 +70,13 @@ public class IntersectionsWSImpl implements IntersectionsWS {
      */
     @Override
     public Intersection getIntersectionById(int id) { 
-        ThreadContext.push(UUID.randomUUID().toString());
+        
         LOG.info("Executing operation getIntersectionById");
         
         try {
             Intersection i = intersectionService.getById(id);
             
             LOG.info("Executing operation getIntersectionById is finished");
-            ThreadContext.clearAll();
             return i;
             
         } catch (Exception ex) {
@@ -99,6 +103,26 @@ public class IntersectionsWSImpl implements IntersectionsWS {
             LOG.fatal(ex.getMessage());
             throw new RuntimeException(ex);
         }
+    }
+    
+    @Override
+    public String createMongoIntersection(IntersectionMongo i){
+//        ThreadContext.push(UUID.randomUUID().toString());
+//        LOG.info("Executing operation createMongoIntersection");
+        
+        try {
+            
+            intersectionService.createMongo(i);
+            
+            //LOG.info("Executing operation createMongoIntersection is finished");
+//            ThreadContext.clearAll();
+            return "Kreiran";
+            
+        } catch (Exception ex) {
+            LOG.fatal(ex.getMessage());
+            throw new RuntimeException("Nije kreirana");
+        }
+  
     }
 
 }
